@@ -98,7 +98,10 @@ func handleRequest() {
 	myRouter.HandleFunc("/api/articles/{articleid}", updateArticle).Methods("PUT")
 	myRouter.HandleFunc("/api/articles/{articleid}", deleteArticle).Methods("DELETE")
 	// Run server(Log.Fatal throws error if fail)
-	log.Fatal(http.ListenAndServe(":8080", myRouter))
+	err := http.ListenAndServe(":8080", myRouter)
+	if err != nil {
+		log.Fatalf("ListenAndServe failed with %s\n", err)
+	}
 }
 
 // Generate random ID and convertToString
